@@ -6,11 +6,11 @@ struct Chunk {
     is_placeholder: bool,
 }
 
-trait Chunk_validator {
+trait ChunkValidator {
     fn get_chunk(&self, index: usize) -> Option<&Chunk>;
 }
 
-impl Chunk_validator for Vec<Chunk> {
+impl ChunkValidator for Vec<Chunk> {
     fn get_chunk(&self, index: usize) -> Option<&Chunk> {
         let chunk = self.get(index);
         if chunk.is_none() {

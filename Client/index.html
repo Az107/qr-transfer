@@ -1,6 +1,80 @@
-<html>
+<!doctype html>
+<html lang="en-US">
     <head>
-        <src> </src>
+        <meta charset="utf-8" />
+        <title>hello-wasm example</title>
+        <script>
+            let video = document.getElementById("video");
+
+            /* Setting up the constraint */
+            var facingMode = "user"; // Can be 'user' or 'environment' to access back or front camera (NEAT!)
+            var constraints = {
+                audio: true,
+                video: { width: window.innerWidth, height: window.innerHeight },
+            };
+
+            /* Stream it to video element */
+            navigator.mediaDevices
+                .getUserMedia(constraints)
+                .then(function success(stream) {
+                    if (video == null || video == undefined) {
+                        video = document.getElementById("video");
+                    }
+                    video.srcObject = stream;
+                })
+                .catch((err) => {
+                    alert("error: " + err);
+                });
+        </script>
+        <script type="module"></script>
+        <style>
+            html,
+            body {
+                height: 100%;
+            }
+
+            #video {
+                height: 100%;
+                width: 100%;
+                background-color: black;
+                z-index: 0;
+            }
+            #footer {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1;
+                background-color: transparent;
+                display: flex;
+                justify-content: center;
+                padding: 10px;
+                padding-bottom: 5vh;
+            }
+
+            .cam-button {
+                border-radius: 100px;
+                border: solid 3px white;
+                background-color: aliceblue;
+                height: 20vw;
+                width: 20vw;
+                box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.75);
+            }
+            #app {
+                height: 100%;
+                width: 100%;
+
+                display: flex;
+                flex-direction: column;
+            }
+        </style>
     </head>
-    <body></body>
+    <body>
+        <div id="app">
+            <video autoplay muted id="video"></video>
+            <footer id="footer">
+                <button class="cam-button" id="startbutton"></button>
+            </footer>
+        </div>
+    </body>
 </html>
